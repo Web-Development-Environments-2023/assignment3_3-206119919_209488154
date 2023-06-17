@@ -22,3 +22,15 @@
 #nav a.router-link-exact-active {
     color: #42b983;
 }
+
+.logged-in {
+    display: flex;
+    column-gap: 1vw;
+    // flex-direction: row;
+}
+
+.logged-in button {
+    height: 4vh;
+    width: 5vw;
+    padding: 0px;
+}
