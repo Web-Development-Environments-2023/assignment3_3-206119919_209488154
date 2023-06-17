@@ -162,19 +162,27 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button 
+        type="reset" 
+        variant="danger"
+      >
+        Reset
+      </b-button>
       <b-button
+        id="submit"
         type="submit"
         variant="primary"
-        style="width:250px;"
         class="ml-5 w-75"
-        >Register</b-button
       >
+        Register
+      </b-button>
+
       <div class="mt-2">
         You have an account already?
         <router-link to="login"> Log in here</router-link>
       </div>
     </b-form>
+    
     <b-alert
       class="mt-2"
       v-if="form.submitError"
