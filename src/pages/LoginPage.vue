@@ -37,11 +37,13 @@
       </b-form-group>
 
       <b-button
+        id="submit"
         type="submit"
         variant="primary"
-        style="width:100px;display:block;"
         class="mx-auto w-100"
-        >Login</b-button
+      >
+        Login
+      </b-button
       >
       <div class="mt-2">
         Do not have an account yet?
@@ -130,7 +132,5 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.container {
-  max-width: 400px;
-}
+@import "@/scss/login-style.scss";
 </style>
