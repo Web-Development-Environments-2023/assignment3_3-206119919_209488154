@@ -7,6 +7,10 @@
 }
 
 #nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    column-gap: 2vw;
     padding: 30px;
 }
 
