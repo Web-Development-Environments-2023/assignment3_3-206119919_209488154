@@ -3,13 +3,13 @@
     <h1 class="title">Main Page</h1>
     <div class="recipes-preview-container">
       <div>
-        <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" ref="randomeRecipes"/>
-        <button @click="updateRecipes">Different Recipes</button>
+        <RecipePreviewList title="Randome Recipes" type="random" class="RandomRecipes center" ref="randomeRecipes"/>
+        <button @click="updateRandomRecipes">Update Recipes</button>
       </div>
       <div>
-        <!-- {{ !$root.store.username }} -->
         <RecipePreviewList
           title="Last Viewed Recipes"
+          type="last-seen"
           :class="{
             RandomRecipes: true,
             blur: !$root.store.username,
