@@ -4,7 +4,7 @@
     <div class="recipes-preview-container">
       <div>
         <RecipePreviewList title="Randome Recipes" type="random" class="RandomRecipes center" ref="randomeRecipes"/>
-        <button @click="updateRandomRecipes">Update Recipes</button>
+        <button @click="updateRecipes">Update Recipes</button>
       </div>
       <div>
         <RecipePreviewList

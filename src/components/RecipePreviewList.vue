@@ -40,19 +40,51 @@ export default {
   methods: {
     async updateRecipes() {
       try {
-        let response;
-        if (this.type === "random") {
-          response = await this.axios.get(
-            this.$root.store.server_domain + "/recipes/random",
-            // "https://test-for-3-2.herokuapp.com/recipes/random"
-          );
-        }
-        else if (this.type === "last-seen") {
-          response = await this.axios.get(
-            this.$root.store.server_domain + "/users/watched",
-          );
-        }
-        const recipes = response.data;
+        // let response;
+        // if (this.type === "random") {
+        //   response = await this.axios.get(
+        //     this.$root.store.server_domain + "/recipes/random",
+        //     // "https://test-for-3-2.herokuapp.com/recipes/random"
+        //   );
+        // }
+        // else if (this.type === "last-seen") {
+        //   response = await this.axios.get(
+        //     this.$root.store.server_domain + "/users/watched",
+        //   );
+        // }
+        // const recipes = response.data;
+        const recipes = [
+          {
+          aggregateLikes: 5,
+          glutenFree: false,
+          id: 665540,
+          image: "https://spoonacular.com/recipeImages/665540-556x370.jpg",
+          readyInMinutes: 45,
+          title: "Yogurt Cake",
+          vegan: false,
+          vegetarian: true,
+          },
+          {
+          aggregateLikes: 82,
+          glutenFree: false,
+          id: 658357,
+          image: "https://spoonacular.com/recipeImages/658357-556x370.jpg",
+          readyInMinutes: 45,
+          title: "Rigatoni With Sweet Sausages In Creamy Tomato Sauce",
+          vegan: false,
+          vegetarian: false,
+          },
+          {
+          aggregateLikes: 57,
+          glutenFree: true,
+          id: 715446,
+          image: "https://spoonacular.com/recipeImages/715446-556x370.jpg",
+          readyInMinutes: 490,
+          title: "Slow Cooker Beef Stew",
+          vegan: false,
+          vegetarian: false
+          }
+        ];
         this.recipes = [];
         this.recipes.push(...recipes);
       } catch (error) {
