@@ -3,6 +3,8 @@ import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
 
+import store from './store';
+
 import routes from "./routes";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
@@ -85,6 +87,7 @@ console.log(shared_data);
 
 new Vue({
   router,
+  store,
   data() {
     return {
       store: shared_data,

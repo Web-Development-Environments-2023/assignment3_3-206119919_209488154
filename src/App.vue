@@ -4,14 +4,13 @@
       <router-link :to="{ name: 'main' }">Sanji's Social Recipes</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
       <router-link :to="{ name: 'about' }">About</router-link>|
-      <!-- {{ !$root.store.username }} -->
-      <span v-if="!$root.store.username">
+      <span v-if="!username">
         Hello Guest! 
         <router-link :to="{ name: 'register' }"> Register </router-link>|
         <router-link :to="{ name: 'login' }"> Login </router-link>
       </span>
       <span v-else class="logged-in">
-        Hello {{ $root.store.username }}! 
+        Hello {{ username }}! 
         <b-dropdown
           id="dropdown"
           text="Profile"
@@ -31,16 +30,30 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   name: "App",
+  computed: {
+    ...mapState({
+      username: state => state.username
+    })
+  },
   methods: {
-    Logout() {
-      this.$root.store.logout();
-      this.$root.toast("Logout", "User logged out successfully", "success");
-
-      this.$router.push("/").catch(() => {
-        this.$forceUpdate();
-      });
+    async Logout() {
+      try {
+        const response = await this.$store.dispatch('logout');
+        if (response.status === 200) {
+          this.$root.toast("Logout", "User logged out successfully", "success");
+          this.$router.push("/").catch(() => {
+            this.$forceUpdate();
+          });
+        }
+        else {
+          this.$root.toast("Logout", response.data.message, "fail");
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 };
