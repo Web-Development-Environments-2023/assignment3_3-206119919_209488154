@@ -26,9 +26,6 @@
         <img v-if="recipe.glutenFree" src="@/assets/gluten-free.png" />
         <img v-else src="@/assets/contains-gluten.png" />
         <img v-if="isWatched" src="@/assets/watched.png" />
-        <!-- <img v-if="isfavorite" src="@/assets/favorite.png" />
-        <img v-else src="@/assets/not-favorite.png" /> -->
-        
       </div>
     </div>
   </div>
@@ -66,11 +63,11 @@ export default {
           const response = await addRecipeToUserFavorites(this.recipe.id);
           if (response.status === 200) {
             this.isFavorite = true;
-            this.$root.toast("AddToFavorites", "Recipe added to last watched", "success");
+            this.$root.toast("Favorites", "Added recipe to favorites", "success");
             this.$store.dispatch('setFavoriteRecipes');
           }
           else {
-            this.$root.toast("AddToFavorites", response.data.message, "fail");
+            this.$root.toast("Favorites", response.data.message, "fail");
           }
         } catch (error) {
           console.log(error)
