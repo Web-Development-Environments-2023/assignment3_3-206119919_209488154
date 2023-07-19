@@ -20,11 +20,6 @@
         <router-link v-if="!username" to="/login" tag="button">Login to View</router-link>
       </div>
     </div>
-    <!-- <div
-      style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
-    >
-      Centeredasdasdad
-    </div>-->
   </div>
 </template>
 
@@ -35,47 +30,10 @@ export default {
   components: {
     RecipePreviewList
   },
-  data() { // TODO: remove
-    return {
-      randomRecipes:
-      [
-        {
-          aggregateLikes: 5,
-          glutenFree: false,
-          id: 665540,
-          image: "https://spoonacular.com/recipeImages/665540-556x370.jpg",
-          readyInMinutes: 45,
-          title: "Yogurt Cake",
-          vegan: false,
-          vegetarian: true,
-        },
-        {
-          aggregateLikes: 82,
-          glutenFree: false,
-          id: 658357,
-          image: "https://spoonacular.com/recipeImages/658357-556x370.jpg",
-          readyInMinutes: 45,
-          title: "Rigatoni With Sweet Sausages In Creamy Tomato Sauce",
-          vegan: false,
-          vegetarian: false,
-        },
-        {
-          aggregateLikes: 57,
-          glutenFree: true,
-          id: 715446,
-          image: "https://spoonacular.com/recipeImages/715446-556x370.jpg",
-          readyInMinutes: 490,
-          title: "Slow Cooker Beef Stew",
-          vegan: false,
-          vegetarian: false
-        }
-      ],
-    }
-  },
   computed: {
     ...mapState({
       username: state => state.username,
-      // randomRecipes: state => state.randomRecipes, TODO: uncomment this
+      randomRecipes: state => state.randomRecipes,
       watchedRecipes: state => state.watchedRecipes
     })
   },
