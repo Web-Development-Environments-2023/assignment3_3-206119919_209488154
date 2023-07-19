@@ -48,7 +48,7 @@
   text-overflow: ellipsis;
 }
   
-.recipe-preview .recipe-footer ul.recipe-overview {
+ul.recipe-overview {
   display: flex;
   flex-direction: column;
   padding: 5px 10px;
@@ -70,7 +70,7 @@
   justify-content: left;
 }
   
-.recipe-preview .recipe-footer ul.recipe-overview li {
+ul.recipe-overview li {
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   -o-box-flex: 1;
@@ -84,13 +84,13 @@
   text-align: center;
 }
 
-.recipe-preview .recipe-footer .recipe-properties {
+.recipe-properties {
   display: flex;
   flex-direction: row;
   justify-content:space-evenly;
 }
 
-.recipe-preview .recipe-footer .recipe-properties img {
+.recipe-properties img {
   width: 10%;
   height: 10%;
 }

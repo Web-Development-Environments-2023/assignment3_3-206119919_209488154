@@ -54,9 +54,10 @@ export async function searchRecipes(searchDetails) {
 export async function getRecipeById(recipeId) {
     try {
         const response = await axios.get(
-            server_domain + `/${recipeId}`,
+            server_domain + `/recipe/${recipeId}`,
             { withCredentials: true }
         );
+        console.log(response);
         return response;
     } catch (error) {
         console.log(error);

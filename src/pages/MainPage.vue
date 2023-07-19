@@ -3,7 +3,7 @@
     <h1 class="title">Main Page</h1>
     <div class="recipes-preview-container">
       <div>
-        <RecipePreviewList title="Randome Recipes" :recipes="randomRecipes" class="RandomRecipes center" ref="randomeRecipes"/>
+        <RecipePreviewList title="Random Recipes" :recipes="randomRecipes" class="RandomRecipes center" ref="randomeRecipes"/>
         <button @click="updateRandomRecipes">Update Recipes</button>
       </div>
       <div>
