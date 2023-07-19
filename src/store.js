@@ -42,6 +42,9 @@ const store = new Vuex.Store({
         },
         setSearchNumber(state, searchNumber) {
             state.searchNumber = searchNumber;
+        },
+        setPreviousSearch(state, previousSearch) {
+            state.previousSearch = previousSearch;
         }
     },
     actions: {
@@ -108,6 +111,9 @@ const store = new Vuex.Store({
             } catch (error) {
                 console.log(error);
             }
+        },
+        setPreviousSearch({ commit }, previousSearch) {
+            commit('setPreviousSearch', previousSearch);
         }
     }
 });

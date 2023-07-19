@@ -39,8 +39,10 @@ export async function searchRecipes(searchDetails) {
     try {
         const response = await axios.get(
             server_domain + '/search',
-            searchDetails,
-            { withCredentials: true }
+            {
+                params: searchDetails,
+                withCredentials: true
+            }
         );
         return response;
     } catch (error) {
