@@ -9,17 +9,26 @@
     </div>
     <div class="recipe-footer">
       <div :title="recipe.title" class="recipe-title">
+        <button
+        @click="addToFavorites"
+        :class="{ 'text-danger': !isFavorite}">
+          ♡
+        </button>
         {{ recipe.title }}
       </div>
       <ul class="recipe-overview">
         <li>{{ recipe.readyInMinutes }} minutes</li>
         <li>{{ recipe.aggregateLikes }} likes</li>
       </ul>
-      <div class="recipe-allergens">
+      <div class="recipe-properties">
         <img v-if="recipe.vegan" src="@/assets/vegan.png" />
         <img v-else-if="recipe.vegetarian" src="@/assets/vegeterian.png" />
         <img v-if="recipe.glutenFree" src="@/assets/gluten-free.png" />
         <img v-else src="@/assets/contains-gluten.png" />
+        <img v-if="isWatched" src="@/assets/watched.png" />
+        <!-- <img v-if="isfavorite" src="@/assets/favorite.png" />
+        <img v-else src="@/assets/not-favorite.png" /> -->
+        
       </div>
     </div>
   </div>
@@ -27,21 +36,46 @@
 </template>
 
 <script>
+import { addRecipeToUserFavorites } from "../services/users";
+
 export default {
   mounted() {
     this.axios.get(this.recipe.image).then((i) => {
       this.image_load = true;
     });
+    this.isWatched = this.$store.state.watchedRecipes.indexOf(this.recipe) !== -1,
+    this.isFavorite = this.$store.state.favoriteRecipes.indexOf(this.recipe) !== -1
   },
   data() {
     return {
-      image_load: false
+      image_load: false,
+      isWatched: false,
+      isFavorite: false
     };
   },
   props: {
     recipe: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    async addToFavorites() {
+      if (!this.isFavorite) {
+        try {
+          const response = await addRecipeToUserFavorites(this.recipe.id);
+          if (response.status === 200) {
+            this.isFavorite = true;
+            this.$root.toast("AddToFavorites", "Recipe added to last watched", "success");
+            this.$store.dispatch('setFavoriteRecipes');
+          }
+          else {
+            this.$root.toast("AddToFavorites", response.data.message, "fail");
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
     }
   }
 };

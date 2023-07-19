@@ -5,16 +5,16 @@ const server_domain = "http://localhost:3000/users";
 /**
  * This path gets body with recipeId and save this recipe in the favorites list of the logged-in user
  */
-export async function addRecipeToUserFavorites(recipe_id) {
+export async function addRecipeToUserFavorites(recipeId) {
     try {
         const response = await axios.post(
             server_domain + '/favorites', 
-            { recipe_id }, 
+            { recipeId }, 
             { withCredentials: true }
         );
         return response;
     } catch (error) {
-        console.log(err);
+        console.log(error);
     }
 }
 
@@ -29,23 +29,23 @@ export async function getUserFavoriteRecipes() {
         );
         return response;
     } catch (error) {
-        console.log(err);
+        console.log(error);
     }
 }
 
 /**
  * This path gets body with recipeId and save this recipe in the watched list of the logged-in user
  */
-export async function addRecipeWatchedByUser(recipe_id) {
+export async function addRecipeWatchedByUser(recipeId) {
     try {
         const response = await axios.post(
             server_domain + '/watched', 
-            { recipe_id }, 
+            { recipeId }, 
             { withCredentials: true }
         );
         return response;
     } catch (error) {
-        console.log(err);
+        console.log(error);
     }
 }
 
@@ -60,7 +60,7 @@ export async function getRecipesWatchedByUsers() {
         );
         return response;
     } catch (error) {
-        console.log(err);
+        console.log(error);
     }
 }
 
@@ -76,7 +76,7 @@ export async function addRecipeCreatedByUser(recipe) {
         );
         return response;
     } catch (error) {
-        console.log(err);
+        console.log(error);
     }
 }
 
@@ -91,6 +91,6 @@ export async function getRecipesCreatedByUser() {
         );
         return response;
     } catch (error) {
-        console.log(err);
+        console.log(error);
     }
 }

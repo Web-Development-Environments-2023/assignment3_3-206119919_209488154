@@ -106,7 +106,7 @@ const store = new Vuex.Store({
                     commit('setRandomRecipes', response.data);
                 }
             } catch (error) {
-                console.log(err);
+                console.log(error);
             }
         }
     }

@@ -13,7 +13,7 @@ export async function getFamilyRecipes() {
         );
         return response;
     } catch (error) {
-        console.log(err);
+        console.log(error);
     }
 }
 
@@ -51,10 +51,10 @@ export async function searchRecipes(searchDetails) {
 /**
  * This path returns the full details of a recipe by its id
  */
-export async function getRecipeById(recipe_id) {
+export async function getRecipeById(recipeId) {
     try {
         const response = await axios.get(
-            server_domain + `/${recipe_id}`,
+            server_domain + `/${recipeId}`,
             { withCredentials: true }
         );
         return response;
