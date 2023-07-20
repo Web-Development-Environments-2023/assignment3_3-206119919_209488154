@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1 class="title">Search Page</h1>
-    
+
     <b-form @submit.prevent="onSearch" @reset.prevent="onReset">
       <div>Previous Search: <b>{{ previousSearch }}</b></div>
       <b-form-group
@@ -127,7 +127,6 @@
 </template>
 
 <script>
-//TODO: styles
 
 import { searchRecipes } from '../services/recipes.js';
 import RecipePreviewList from "../components/RecipePreviewList.vue";
