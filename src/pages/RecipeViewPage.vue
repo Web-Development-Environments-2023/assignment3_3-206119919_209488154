@@ -10,7 +10,7 @@
         </button>
         <div class="recipe-properties">
           <img v-if="recipe.vegan" src="@/assets/vegan.png" />
-          <img v-else-if="recipe.vegetarian" src="@/assets/vegeterian.png" />
+          <img v-else-if="recipe.vegetarian" src="@/assets/vegetarian.png" />
           <img v-if="recipe.glutenFree" src="@/assets/gluten-free.png" />
           <img v-else src="@/assets/contains-gluten.png" />
           <img src="@/assets/watched.png" />
@@ -50,15 +50,19 @@
 
 <script>
 import { getRecipeById } from '../services/recipes';
+import { addRecipeToUserFavorites, addRecipeWatchedByUser } from '../services/users';
 
 export default {
+  name: "RecipeView",
   mounted() {
-    this.isFavorite = this.$store.state.favoriteRecipes.indexOf(this.recipe) !== -1
+    this.isFavorite = this.$store.state.favoriteRecipes.indexOf(this.recipe) !== -1;
+    this.isWatched = this.$store.state.favoriteRecipes.indexOf(this.recipe) !== -1;
   },
   data() {
     return {
       recipe: null,
-      isFavorite: false
+      isFavorite: false,
+      isWatched: false
     };
   },
   async created() {
@@ -111,6 +115,19 @@ export default {
     }
   },
   methods: {
+    async addToWatched() {
+      if (!this.isWatched) {
+        try {
+          const response = await addRecipeWatchedByUser(this.recipe.id);
+          if (response.status === 200) {
+            this.isWatched = true;
+            this.$store.dispatch('setWatchedRecipes');
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    },
     async addToFavorites() {
       if (!this.isFavorite) {
         try {

@@ -268,7 +268,7 @@ export default {
       const { $dirty, $error } = this.$v.form[param];
       return $dirty ? !$error : null;
     },
-    async Register() {
+    async register() {
       // "https://test-for-3-2.herokuapp.com/user/Register",
       try {
         const response = await registerUser(
@@ -296,7 +296,7 @@ export default {
       if (this.$v.form.$anyError) {
         return;
       }
-      this.Register();
+      this.register();
     },
     onReset() {
       this.form = {

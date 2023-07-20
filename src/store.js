@@ -22,6 +22,7 @@ const store = new Vuex.Store({
         favoriteRecipes: [],
         createdRecipes: [],
         randomRecipes: [],
+        familyRecipes: [],
         previousSearch: ''
     },
     mutations: {
@@ -40,8 +41,8 @@ const store = new Vuex.Store({
         setRandomRecipes(state, randomRecipes) {
             state.randomRecipes = randomRecipes;
         },
-        setSearchNumber(state, searchNumber) {
-            state.searchNumber = searchNumber;
+        setFamilyRecipes(state, familyRecipes) {
+            state.familyRecipes = familyRecipes;
         },
         setPreviousSearch(state, previousSearch) {
             state.previousSearch = previousSearch;
@@ -107,6 +108,16 @@ const store = new Vuex.Store({
                 const response = await recipes.getThreeRandomRecipes();
                 if (response.status === 200) {
                     commit('setRandomRecipes', response.data);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async setFamilyRecipes({ commit }) {
+            try {
+                const response = await recipes.getFamilyRecipes();
+                if (response.status === 200) {
+                    commit('setFamilyRecipes', response.data);
                 }
             } catch (error) {
                 console.log(error);

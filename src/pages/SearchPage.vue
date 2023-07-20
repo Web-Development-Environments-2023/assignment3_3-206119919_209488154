@@ -102,9 +102,9 @@
               Sort By Preperation Time
           </b-button>
           <b-button
-            @click="sortByPopularity"
+            @click="sortByLikes"
             variant="outline-primary">
-              Sort By Popularity
+              Sort By Likes
           </b-button>
         </b-button-group>
         <RecipePreviewList
@@ -183,11 +183,7 @@ export default {
       const { $dirty, $error } = this.$v.form[param];
       return $dirty ? !$error : null;
     },
-    async onSearch() {
-      this.$v.form.$touch();
-      if (this.$v.form.$anyError) {
-        return;
-      }
+    async search() {
       this.form.submitError = undefined;
       this.searchResults = [];
       this.$store.dispatch("setPreviousSearch", this.form.query);
@@ -204,6 +200,13 @@ export default {
         this.searchResults.push(...response.data);
       }
     },
+    async onSearch() {
+      this.$v.form.$touch();
+      if (this.$v.form.$anyError) {
+        return;
+      }
+      this.search();
+    },
     onReset() {
       this.form = {
         ...searchDefaultValues      
@@ -217,9 +220,9 @@ export default {
         return a.readyInMinutes - b.readyInMinutes;
       })
     },
-    sortByPopularity() {
+    sortByLikes() {
       this.searchResults.sort((a, b) => {
-        return b.popularity - a.popularity;
+        return b.aggregateLikes - a.aggregateLikes;
       })
     }
   }

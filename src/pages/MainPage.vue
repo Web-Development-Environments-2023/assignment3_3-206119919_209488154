@@ -27,6 +27,7 @@
 import { mapState } from 'vuex';
 import RecipePreviewList from "../components/RecipePreviewList";
 export default {
+  name: "Main",
   components: {
     RecipePreviewList
   },
@@ -37,19 +38,19 @@ export default {
       watchedRecipes: state => state.watchedRecipes
     })
   },
-  mounted() {
-    this.updateRandomRecipes();
-    if (this.username) {
-      this.updateWatchedRecipes()
-    }
-  },
+  // mounted() {
+  //   this.updateRandomRecipes();
+  //   if (this.username) {
+  //     this.updateWatchedRecipes()
+  //   }
+  // },
   methods: {
     updateRandomRecipes() {
       this.$store.dispatch('setRandomRecipes');
     },
-    updateWatchedRecipes() {
-      this.$store.dispatch('setWatchedRecipes');
-    }
+  //   updateWatchedRecipes() {
+  //     this.$store.dispatch('setWatchedRecipes');
+  //   }
   }
 };
 </script>

@@ -20,14 +20,14 @@
     },
     computed: {
       ...mapState({
-        username: state => state.username,
+        // username: state => state.username,
         createdRecipes: state => state.createdRecipes
       }),
     },
-    mounted() {
-      if (this.username) {
-        this.$store.dispatch("setCreatedRecipes", this.username);
-      }
-    },
+    // mounted() {
+    //   if (this.username) {
+    //     this.$store.dispatch("setCreatedRecipes", this.username);
+    //   }
+    // },
   };  
 </script>    

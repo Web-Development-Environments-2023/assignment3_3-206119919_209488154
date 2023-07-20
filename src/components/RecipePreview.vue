@@ -24,7 +24,7 @@
     </ul>
     <div class="recipe-properties">
       <img v-if="recipe.vegan" src="@/assets/vegan.png" />
-      <img v-else-if="recipe.vegetarian" src="@/assets/vegeterian.png" />
+      <img v-else-if="recipe.vegetarian" src="@/assets/vegetarian.png" />
       <img v-if="recipe.glutenFree" src="@/assets/gluten-free.png" />
       <img v-else src="@/assets/contains-gluten.png" />
       <img v-if="isWatched" src="@/assets/watched.png" />
@@ -36,6 +36,7 @@
 import { addRecipeToUserFavorites } from "../services/users";
 
 export default {
+  name: "RecipePreview",
   mounted() {
     this.axios.get(this.recipe.image).then((i) => {
       this.image_load = true;

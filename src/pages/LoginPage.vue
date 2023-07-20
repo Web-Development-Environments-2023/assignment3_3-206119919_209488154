@@ -105,6 +105,7 @@ export default {
           this.$store.dispatch('setFavoriteRecipes');
           this.$store.dispatch('setWatchedRecipes');
           this.$store.dispatch('setCreatedRecipes');
+          this.$store.dispatch('setFamilyRecipes');
           this.$router.push("/");
         }
         else {
