@@ -2,45 +2,40 @@
   <div class="container">
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
-        <h1>{{ recipe.title }}</h1>
-        <button
-          @click="addToFavorites"
-          :class="{ 'text-danger': recipe.isFavorite}">
-          ♡
-        </button>
-        <div class="recipe-properties">
-          <img v-if="recipe.vegan" src="@/assets/vegan.png" />
-          <img v-else-if="recipe.vegetarian" src="@/assets/vegetarian.png" />
-          <img v-if="recipe.glutenFree" src="@/assets/gluten-free.png" />
-          <img v-else src="@/assets/contains-gluten.png" />
-          <img src="@/assets/watched.png" />
+        <div>
+          <h1>{{ recipe.title }}</h1>
+          <div class="mb-3">
+            <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
+            <div>Likes: {{ recipe.aggregateLikes }} likes</div>
+          </div>
         </div>
-        <img :src="recipe.image" class="center" />
+        <div class="recipe-info">
+          <div class="recipe-properties">
+            <b-button pill variant="outline-success"
+              @click="addToFavorites">
+              <i class="bi bi-heart-fill" :class="recipe.isFavorite ? 'red' : '' "></i>
+            </b-button>
+            <div class="recipe-indicators">
+              <img v-if="recipe.isWatched" src="@/assets/watched.png" />
+              <img v-if="recipe.vegan" src="@/assets/vegan.png" />
+              <img v-else-if="recipe.vegetarian" src="@/assets/vegetarian.png" />
+              <img v-if="recipe.glutenFree" src="@/assets/gluten-free.png" />
+              <img v-else src="@/assets/contains-gluten.png" />
+            </div>
+          </div>
+          <img :src="recipe.image" class="center recipe-image" />
+        </div>
+        
       </div>
       <div class="recipe-body">
         <div class="wrapper">
           <div class="wrapped">
-            <div class="mb-3">
-              <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Likes: {{ recipe.aggregateLikes }} likes</div>
-            </div>
-            Ingredients:
-            <ul>
-              <li
-                v-for="(r, index) in recipe.extendedIngredients"
-                :key="index + '_' + r.id"
-              >
-                {{ r.original }}
-              </li>
-            </ul>
+            <b>Ingredients:</b><br>
+            {{ recipe.extendedIngredients.replaceAll("\"", "") }}
           </div>
           <div class="wrapped">
-            Instructions:
-            <ol>
-              <li v-for="s in recipe.instructions" :key="s.number">
-                {{ s }}
-              </li>
-            </ol>
+            <b>Instructions:</b><br>
+            {{ recipe.instructions.replaceAll("\"", "") }}
           </div>
         </div>
       </div>
@@ -69,16 +64,15 @@ export default {
       }
       let recipe = response.data;
       
-      let {instructions} = recipe;
-      instructions = instructions.split('<li>');
-      let _instructions = [];
-      for (let i = 0; i < instructions.length; i++) {
-        instructions[i] = instructions[i].replace('<ol>', '').replace('</li>', '').replace('</ol>', '');
-        if (instructions[i] !== '') {
-          _instructions.push(instructions[i]);
-        }
-      }
-      recipe.instructions = _instructions;
+      // let {instructions} = recipe;
+      // instructions = instructions.split(/<.*>/);
+      // let _instructions = [];
+      // for (let i = 0; i < instructions.length; i++) {
+      //   if (instructions[i] !== '') {
+      //     _instructions.push(instructions[i]);
+      //   }
+      // }
+      // recipe.instructions = _instructions;
 
       this.recipe = recipe;
       await this.addToWatched();
@@ -89,7 +83,6 @@ export default {
   },
   methods: {
     async addToWatched() {
-      debugger;
       if (!this.recipe.isWatched) {
         try {
           const response = await addRecipeWatchedByUser(this.recipe.id);
@@ -108,6 +101,7 @@ export default {
           if (response.status === 200) {
             this.$root.toast("Favorites", "Added recipe to favorites", "success");
             this.$store.dispatch('setFavoriteRecipes');
+            this.recipe.isFavorite = true;
           }
           else {
             this.$root.toast("Favorites", response.data.message, "fail");

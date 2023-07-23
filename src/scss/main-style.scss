@@ -1,14 +1,14 @@
 .recipes-preview-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     width: 100%;
-    align-self: center;
 }
 
-div {
+.list-container {
     display: flex;
     flex-direction: column;
+    width: 33%;
 }
 
 button {
@@ -29,6 +29,6 @@ button {
     cursor: default;
 }
 
-.lists-separator {
-    width: 50%;
-}
+// .lists-separator {
+//     width: 50%;
+// }

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const server_domain = "http://localhost:3000/users";
+const server_domain = "http://localhost:80/users";
 
 /**
  * This path gets body with recipeId and save this recipe in the favorites list of the logged-in user

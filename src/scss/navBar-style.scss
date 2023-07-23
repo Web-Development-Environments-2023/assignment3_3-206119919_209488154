@@ -1,0 +1,48 @@
+.nav-properties {
+    display: flex;
+    align-items: center;
+    justify-content: center;;
+}
+
+.nav-property {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.nav-img {
+    width: 25px;
+    height: 25px;
+}
+
+.nav-title {
+    white-space: nowrap;
+}
+
+// #nav {
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: flex-start;
+//     column-gap: 2vw;
+//     padding: 30px;
+// }
+
+// #nav a {
+//     font-weight: bold;
+//     color: #2c3e50;
+// }
+
+// #nav a.router-link-exact-active {
+//     color: #42b983;
+// }
+
+// .logged-in {
+//     display: flex;
+//     column-gap: 1vw;
+// }
+
+// .logged-in button {
+//     width: fit-content;
+//     padding: 0px;
+// }

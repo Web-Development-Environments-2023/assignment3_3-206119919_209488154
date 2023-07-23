@@ -1,27 +1,24 @@
 <template>
-  <div class="container">
-    <h1 class="title">Main Page</h1>
-    <div class="recipes-preview-container" >
-      <div>
-        <RecipePreviewList
-          title="Random Recipes"
-          recipeListType="random"
-          class="RandomRecipes center"/>
-      </div>
-      <div class="lists-separator"></div>
-      <div>
-        <RecipePreviewList
-          title="Last Viewed Recipes"
-          recipeListType="watched"
-          :class="{
-            RandomRecipes: true,
-            blur: !username,
-            center: true
-          }"
-          disabled
-        ></RecipePreviewList>
-            <router-link v-if="!username" to="/login" tag="button">Login to View</router-link>
-      </div>
+  <div class="recipes-preview-container" >
+    <div class="list-container">
+      <RecipePreviewList
+        title="Checkout These Recipes"
+        recipeListType="random"
+        class="RandomRecipes center"/>
+    </div>
+    <!-- <div class="lists-separator"></div> -->
+    <div class="list-container">
+      <RecipePreviewList
+        title="Your Last Viewed Recipes"
+        recipeListType="watched"
+        :class="{
+          RandomRecipes: true,
+          blur: !username,
+          center: true
+        }"
+        disabled>
+      </RecipePreviewList>
+      <router-link v-if="!username" to="/login" tag="button">Login to View</router-link>
     </div>
   </div>
 </template>

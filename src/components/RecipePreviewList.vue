@@ -1,39 +1,60 @@
 <template>
-  <b-container>
-    <div style="display: flex;justify-content: center;">
-      <b-button
-        v-if="isRandom()"
-        @click="updateRandomRecipes">
-        <i class="bi bi-arrow-repeat" style="width:50px;height:50px"></i>
-      </b-button>
-      <h3>{{ title }}:</h3>
-  </div>
-    <b-row v-if="isWatched()">
-      <b-col v-for="r in watchedRecipes" :key="r.id">
-        <RecipePreview class="recipePreview" :recipe="r" />
-      </b-col>
-    </b-row>
-    <b-row v-if="isRandom()">
-      <b-col v-for="r in randomRecipes" :key="r.id">
-        <RecipePreview class="recipePreview" :recipe="r" />
-      </b-col>
-    </b-row>
-    <b-row v-if="isCreated()">
-      <b-col v-for="r in createdRecipes" :key="r.id">
-        <RecipePreview class="recipePreview" :recipe="r"/>
-      </b-col>
-    </b-row>
-    <b-row v-if="isFavorites()">
-      <b-col v-for="r in favoriteRecipes" :key="r.id">
-        <RecipePreview class="recipePreview" :recipe="r" />
-      </b-col>
-    </b-row>
-    <b-row v-if="isSearch()">
-      <b-col v-for="r in searchRecipes" :key="r.id">
-        <RecipePreview class="recipePreview" :recipe="r" />
-      </b-col>
-    </b-row>
-  </b-container>
+  <b-card-group class="recipe-preview-list-container" deck>
+    <b-card>
+      <template #header>
+        <div class="random-header">
+          <b-button pill variant="success"
+            v-if="isRandom()"
+            @click="updateRandomRecipes">
+            <i class="bi bi-arrow-repeat"></i>
+          </b-button>
+          <h3>{{ title }}:</h3>
+        </div>
+      </template>
+      <b-list-group v-if="isWatched()">
+        <b-list-group-item v-for="r in watchedRecipes" :key="r.id">
+          <RecipePreview class="recipePreview" :recipe="r"/>
+        </b-list-group-item>
+      </b-list-group>
+        
+      <b-list-group v-if="isRandom()">
+        <b-list-group-item v-for="r in randomRecipes" :key="r.id">
+          <RecipePreview class="recipePreview" :recipe="r"/>
+        </b-list-group-item>
+      </b-list-group>
+
+      <b-list-group v-if="isCreated()">
+        <b-list-group-item v-for="r in createdRecipes" :key="r.id">
+          <RecipePreview class="recipePreview" :recipe="r"/>
+        </b-list-group-item>
+      </b-list-group>
+
+      <b-list-group v-if="isFavorites()">
+        <b-list-group-item v-for="r in favoriteRecipes" :key="r.id">
+          <RecipePreview class="recipePreview" :recipe="r" />
+        </b-list-group-item>
+      </b-list-group>
+
+      <b-list-group v-if="isSearch()" horizontal>
+        <b-list-group-item v-for="r in searchRecipes.slice(0, 5)" :key="r.id">
+          <RecipePreview class="recipePreview" :recipe="r" />
+        </b-list-group-item>
+      </b-list-group>
+
+      <b-list-group v-if="isSearch() && searchRecipes.length === 10" horizontal>
+        <b-list-group-item v-for="r in searchRecipes.slice(5, 10)" :key="r.id">
+          <RecipePreview class="recipePreview" :recipe="r" />
+        </b-list-group-item>
+      </b-list-group>
+
+      <b-list-group v-if="isSearch() && searchRecipes.length === 15" horizontal>
+        <b-list-group-item v-for="r in searchRecipes.slice(10, 15)" :key="r.id">
+          <RecipePreview class="recipePreview" :recipe="r" />
+        </b-list-group-item>
+      </b-list-group>
+      
+    </b-card>
+  </b-card-group>
 </template>
 
 <script>

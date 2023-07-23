@@ -15,7 +15,7 @@ const store = new Vuex.Store({
         randomRecipes: [],
         searchRecipes: [],
         previousSearch: '',
-        server_domain: "http://localhost:3000"
+        server_domain: "http://localhost:80"
         // server_domain: "http://SanjisSocialRecipes.cs.bgu.ac.il"
     },
     mutations: {

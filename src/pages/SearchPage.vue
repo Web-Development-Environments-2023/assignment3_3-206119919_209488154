@@ -73,9 +73,6 @@
           <b-form-invalid-feedback v-if="!$v.form.number.required">
             Search Results Amount is required
           </b-form-invalid-feedback>
-          <b-form-invalid-feedback v-if="!$v.form.number.isValidNumberOption">
-            Search Results Amount must be 5, 10 or 15
-          </b-form-invalid-feedback>
       </b-form-group>
 
       <b-button
@@ -163,10 +160,7 @@ export default {
         required
       },
       number: {
-        required,
-        isValidNumberOption(value) {
-          return ["5", "10", "15"].includes(value);
-        }
+        required
       }
     }
   },

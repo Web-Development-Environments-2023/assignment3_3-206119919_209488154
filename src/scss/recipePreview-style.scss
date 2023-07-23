@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   margin-top: 6%;
+  width: 50%;
 }
 
 .recipe-body {
@@ -18,12 +19,17 @@
   
 .recipe-image {
   width: 90%;
+  max-width: 300px;
 }
-  
-.recipe-title {
+
+.title-container {
   display: flex;
+  max-width: 300px;
+  padding-left: 10%;
   justify-content: center;
-  width: 110%;
+}
+
+.recipe-title {
   white-space: nowrap;
   overflow: hidden;
   -o-text-overflow: ellipsis;
@@ -37,12 +43,17 @@
 }
 
 .recipe-properties img {
-  width: 25px;
-  margin-bottom: 5px;
+  width: 30px;
+  margin-bottom: 10px;
 }
 
 .recipe-properties button {
-  margin-bottom: 5px;
+  display: inline-block;
+  padding: 4px;
+  text-align: center;
+  width: 35px;
+  height: 35px;
+  font-size: larger;
 }
   
 .recipe-overview {
@@ -63,4 +74,8 @@
   flex-direction: column;
   justify-content: space-around;
   width: 90%; 
+}
+
+.red {
+  color: red;
 }

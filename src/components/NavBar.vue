@@ -1,37 +1,63 @@
 <template>
   <div id="nav">
-    <router-link :to="{ name: 'main' }">Sanji's Social Recipes</router-link>|
-    <router-link :to="{ name: 'search' }">Search</router-link>|
-    <router-link :to="{ name: 'about' }">About</router-link>|
-    <span v-if="!username">
-      Hello Guest! 
-      <router-link :to="{ name: 'register' }"> Register </router-link>|
-      <router-link :to="{ name: 'login' }"> Login </router-link>
-    </span>
-    <span v-else class="logged-in">
-      Hello {{ username }}! 
-      <b-dropdown
-        id="dropdown"
-        text="Profile"
-        toggle-class="nav-link-custom"
-        left
-      >
-        <b-dropdown-item>
-            <router-link :to="{ name: 'favorites' }"> Favorites </router-link>
-        </b-dropdown-item>
-        <b-dropdown-item>
-            <router-link :to="{ name: 'myRecipes' }"> My Recipes </router-link>
-        </b-dropdown-item>
-        <b-dropdown-item>
-            <router-link :to="{ name: 'family' }"> Family Recipes </router-link>
-        </b-dropdown-item>
-      </b-dropdown>
-      <b-button @click="Logout">Logout</b-button>
-      <b-button @click="showModal">Create Recipe</b-button>|
-      <b-modal ref="create-recipe-modal">
-        <CreateRecipeModal />
-      </b-modal>
-    </span>
+    <b-navbar toggleable="lg" type="dark" variant="success">
+      <b-navbar-brand :to="{ name: 'main' }">
+        Sanji's Social Recipes
+      </b-navbar-brand>
+
+      <!-- <b-navbar-toggle target="nav-collapse"></b-navbar-toggle> -->
+      
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
+          <b-nav-item :to="{ name: 'search' }">Search</b-nav-item>
+          <b-nav-item :to="{ name: 'about' }">About</b-nav-item>
+          <b-nav-item @click="showModal">Create Recipe</b-nav-item>
+        </b-navbar-nav>
+
+        <b-navbar-nav class="nav-properties">
+          <div class="nav-property">
+            <img src="@/assets/vegan.png" class="nav-img"/>
+            <b-nav-text class="nav-title">Vegan</b-nav-text>
+          </div>
+          <div class="nav-property">
+            <img src="@/assets/vegetarian.png" class="nav-img"/>
+            <b-nav-text class="nav-title">Vegetarian</b-nav-text>
+          </div>
+          <div class="nav-property">
+            <img src="@/assets/gluten-free.png" class="nav-img"/>
+            <b-nav-text class="nav-title">Gluten Free</b-nav-text>
+          </div>
+          <div class="nav-property">
+            <img src="@/assets/contains-gluten.png" class="nav-img"/>
+            <b-nav-text class="nav-title">Gluten</b-nav-text>
+          </div>
+          <div class="nav-property">
+            <img src="@/assets/watched.png" class="nav-img"/>
+            <b-nav-text class="nav-title">Seen</b-nav-text>
+          </div>
+        </b-navbar-nav>
+
+        <b-navbar-nav v-if="!username">
+          <b-nav-text>Hello Guest!</b-nav-text>
+          <b-nav-item :to="{ name: 'register' }">Register</b-nav-item>
+          <b-nav-item :to="{ name: 'login' }">Login</b-nav-item>
+        </b-navbar-nav>
+
+        <b-navbar-nav v-else class="ml-auto">
+          <b-nav-text>Hello {{ username }}!</b-nav-text>
+          <b-nav-item-dropdown text="Profile" right>
+            <b-dropdown-item :to="{ name: 'favorites' }">Favorites</b-dropdown-item>
+            <b-dropdown-item :to="{ name: 'myRecipes' }">My Recipes</b-dropdown-item>
+            <b-dropdown-item :to="{ name: 'family' }">Family Recipes</b-dropdown-item>
+          </b-nav-item-dropdown>
+          <b-nav-item @click="Logout">Logout</b-nav-item>
+          <b-modal ref="create-recipe-modal">
+            <CreateRecipeModal />
+          </b-modal>
+        </b-navbar-nav>
+        
+      </b-collapse>
+    </b-navbar>
   </div>
 </template>
 
@@ -74,5 +100,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/scss/form-style.scss";
+@import "@/scss/navBar-style.scss";
 </style>

@@ -37,11 +37,8 @@
           type="text"
           :state="validateState('firstname')"
         ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.firstname.required">
+        <b-form-invalid-feedback>
           First Name is required
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-else-if="!$v.form.firstname.alpha">
-          First Name can include only English letters
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -57,11 +54,8 @@
           type="text"
           :state="validateState('lastname')"
         ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.lastname.required">
+        <b-form-invalid-feedback>
           Last Name is required
-        </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-else-if="!$v.form.lastname.alpha">
-          Last Name can include only English letters
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -234,12 +228,10 @@ export default {
         alpha
       },
       firstname: {
-        required,
-        alpha
+        required
       },
       lastname: {
-        required,
-        alpha
+        required
       },
       country: {
         required

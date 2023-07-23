@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const server_domain = "http://localhost:3000/recipes";
+const server_domain = "http://localhost:80/recipes";
 
 /**
  * This path returns 3 random recipes

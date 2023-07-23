@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const server_domain = "http://localhost:3000";
+const server_domain = "http://localhost:80";
 
 export async function registerUser(registerDetails) {
   try {
