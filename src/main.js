@@ -3,6 +3,8 @@ import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
 
+import store from './store';
+
 import routes from "./routes";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
@@ -13,6 +15,7 @@ const router = new VueRouter({
 import Vuelidate from "vuelidate";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import {
   FormGroupPlugin,
   FormPlugin,
@@ -24,6 +27,7 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  BootstrapVue
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -36,6 +40,7 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  BootstrapVue
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
@@ -67,6 +72,7 @@ Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 
 const shared_data = {
+  server_domain: "http://localhost:80",
   username: localStorage.username,
   login(username) {
     localStorage.setItem("username", username);
@@ -79,11 +85,10 @@ const shared_data = {
     this.username = undefined;
   },
 };
-console.log(shared_data);
-// Vue.prototype.$root.store = shared_data;
 
 new Vue({
   router,
+  store,
   data() {
     return {
       store: shared_data,

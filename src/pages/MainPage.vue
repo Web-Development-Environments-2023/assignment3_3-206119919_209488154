@@ -1,45 +1,44 @@
 <template>
-  <div class="container">
-    <h1 class="title">Main Page</h1>
-    <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" />
-    <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
-    {{ !$root.store.username }}
-    <RecipePreviewList
-      title="Last Viewed Recipes"
-      :class="{
-        RandomRecipes: true,
-        blur: !$root.store.username,
-        center: true
-      }"
-      disabled
-    ></RecipePreviewList>
-    <!-- <div
-      style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
-    >
-      Centeredasdasdad
-    </div>-->
+  <div class="recipes-preview-container" >
+    <div class="list-container">
+      <RecipePreviewList
+        title="Checkout These Recipes"
+        recipeListType="random"
+        class="RandomRecipes center"/>
+    </div>
+    <!-- <div class="lists-separator"></div> -->
+    <div class="list-container">
+      <RecipePreviewList
+        title="Your Last Viewed Recipes"
+        recipeListType="watched"
+        :class="{
+          RandomRecipes: true,
+          blur: !username,
+          center: true
+        }"
+        disabled>
+      </RecipePreviewList>
+      <router-link v-if="!username" to="/login" tag="button">Login to View</router-link>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import RecipePreviewList from "../components/RecipePreviewList";
 export default {
+  name: "Main",
   components: {
     RecipePreviewList
+  },
+  computed: {
+    ...mapState({
+      username: state => state.username
+    })
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.RandomRecipes {
-  margin: 10px 0 10px;
-}
-.blur {
-  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
-  filter: blur(2px);
-}
-::v-deep .blur .recipe-preview {
-  pointer-events: none;
-  cursor: default;
-}
+@import "@/scss/main-style.scss";
 </style>

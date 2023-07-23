@@ -1,0 +1,20 @@
+.random-header {
+    display: flex;
+    justify-content: flex-start;
+}
+
+button {
+    margin-right: 1%;
+    display: inline-block;
+    padding: 3px;
+    text-align: center;
+    width: 35px;
+    height: 35px;
+    font-size: larger;
+}
+
+.list-group-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

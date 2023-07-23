@@ -10,27 +10,49 @@ const routes = [
   {
     path: "/register",
     name: "register",
-    component: () => import("./pages/RegisterPage"),
+    component: () => import("./pages/RegisterPage")
   },
   {
     path: "/login",
     name: "login",
-    component: () => import("./pages/LoginPage"),
+    component: () => import("./pages/LoginPage")
   },
   {
     path: "/search",
     name: "search",
-    component: () => import("./pages/SearchPage"),
+    component: () => import("./pages/SearchPage")
+  },
+  {
+    path: "/about",
+    name: "about",
+    component: () => import("./pages/AboutPage")
   },
   {
     path: "/recipe/:recipeId",
     name: "recipe",
-    component: () => import("./pages/RecipeViewPage"),
+    component: () => import("./pages/RecipeViewPage")
+  },
+  {
+    path: "/favorites",
+    name: "favorites",
+    component: () => import("./pages/FavoritesPage")
+  },
+  ,
+  {
+    path: "/myRecipes",
+    name: "myRecipes",
+    component: () => import("./pages/MyRecipes")
+  },
+  ,
+  {
+    path: "/family",
+    name: "family",
+    component: () => import("./pages/FamilyRecipesPage")
   },
   {
     path: "*",
     name: "notFound",
-    component: NotFound,
+    component: NotFound
   },
 ];
 

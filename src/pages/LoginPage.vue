@@ -37,11 +37,13 @@
       </b-form-group>
 
       <b-button
+        id="submit"
         type="submit"
         variant="primary"
-        style="width:100px;display:block;"
         class="mx-auto w-100"
-        >Login</b-button
+      >
+        Login
+      </b-button
       >
       <div class="mt-2">
         Do not have an account yet?
@@ -57,9 +59,6 @@
     >
       Login failed: {{ form.submitError }}
     </b-alert>
-    <!-- <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card> -->
   </div>
 </template>
 
@@ -92,45 +91,35 @@ export default {
       return $dirty ? !$error : null;
     },
     async Login() {
+      // "https://test-for-3-2.herokuapp.com/user/Login",
       try {
-        
-        const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Login",
-          this.$root.store.server_domain +"/Login",
-          // "http://132.72.65.211:80/Login",
-          // "http://132.73.84.100:80/Login",
-
+        const response = await this.$store.dispatch('login',
           {
             username: this.form.username,
             password: this.form.password
           }
         );
-        // console.log(response);
-        // this.$root.loggedIn = true;
-        console.log(this.$root.store.login);
-        this.$root.store.login(this.form.username);
-        this.$router.push("/");
-      } catch (err) {
-        console.log(err.response);
-        this.form.submitError = err.response.data.message;
+        if (response.status === 200) {
+          this.$router.push("/");
+        }
+        else {
+          this.form.submitError = response.data.message;
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
     onLogin() {
-      // console.log("login method called");
       this.form.submitError = undefined;
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      // console.log("login method go");
-
       this.Login();
     }
   }
 };
 </script>
 <style lang="scss" scoped>
-.container {
-  max-width: 400px;
-}
+@import "@/scss/login-style.scss";
 </style>

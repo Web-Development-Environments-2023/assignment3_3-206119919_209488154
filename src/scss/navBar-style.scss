@@ -1,0 +1,21 @@
+.nav-properties {
+    display: flex;
+    align-items: center;
+    justify-content: center;;
+}
+
+.nav-property {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.nav-img {
+    width: 25px;
+    height: 25px;
+}
+
+.nav-title {
+    white-space: nowrap;
+}
