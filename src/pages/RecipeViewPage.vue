@@ -63,17 +63,6 @@ export default {
         this.$router.replace("/NotFound");
       }
       let recipe = response.data;
-      
-      // let {instructions} = recipe;
-      // instructions = instructions.split(/<.*>/);
-      // let _instructions = [];
-      // for (let i = 0; i < instructions.length; i++) {
-      //   if (instructions[i] !== '') {
-      //     _instructions.push(instructions[i]);
-      //   }
-      // }
-      // recipe.instructions = _instructions;
-
       this.recipe = recipe;
       await this.addToWatched();
     } catch (error) {
