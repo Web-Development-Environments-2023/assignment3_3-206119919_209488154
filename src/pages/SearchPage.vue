@@ -191,6 +191,7 @@ export default {
       try {
         this.$store.dispatch("setPreviousSearch", this.form.query);
         this.previousSearch = this.form.query;
+        localStorage.setItem("previousSearch", this.previousSearch);
 
         let { query, number, cuisine, diet, intolerances } = this.form;
         cuisine = cuisine.join();

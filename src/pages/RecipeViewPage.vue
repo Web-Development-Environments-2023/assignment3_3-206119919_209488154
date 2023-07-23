@@ -28,7 +28,7 @@
         
       </div>
       <div class="recipe-body">
-        <div class="wrapper">
+        <div v-if="recipe.isCreated" class="wrapper">
           <div class="wrapped">
             <b>Ingredients:</b><br>
             {{ recipe.extendedIngredients.replaceAll("\"", "") }}
@@ -36,6 +36,20 @@
           <div class="wrapped">
             <b>Instructions:</b><br>
             {{ recipe.instructions.replaceAll("\"", "") }}
+          </div>
+        </div>
+        <div v-else class="wrapper">
+          <div class="wrapped">
+            <b>Ingredients:</b>
+            <ul>
+              <li v-for="i in recipe.extendedIngredients" :key="i.id">
+                {{ i.original }}
+              </li>
+            </ul>            
+          </div>
+          <div class="wrapped">
+            <b>Instructions:</b>
+            <span v-html="recipe.instructions"></span>
           </div>
         </div>
       </div>
@@ -64,6 +78,7 @@ export default {
       }
       let recipe = response.data;
       this.recipe = recipe;
+      
       await this.addToWatched();
     } catch (error) {
       this.$router.replace("/NotFound");
