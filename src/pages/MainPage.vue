@@ -1,15 +1,18 @@
 <template>
   <div class="container">
     <h1 class="title">Main Page</h1>
-    <div class="recipes-preview-container">
+    <div class="recipes-preview-container" >
       <div>
-        <RecipePreviewList title="Random Recipes" :recipes="randomRecipes" class="RandomRecipes center" ref="randomeRecipes"/>
-        <button @click="updateRandomRecipes">Update Recipes</button>
+        <RecipePreviewList
+          title="Random Recipes"
+          recipeListType="random"
+          class="RandomRecipes center"/>
       </div>
+      <div class="lists-separator"></div>
       <div>
         <RecipePreviewList
           title="Last Viewed Recipes"
-          :recipes="watchedRecipes"
+          recipeListType="watched"
           :class="{
             RandomRecipes: true,
             blur: !username,
@@ -17,7 +20,7 @@
           }"
           disabled
         ></RecipePreviewList>
-        <router-link v-if="!username" to="/login" tag="button">Login to View</router-link>
+            <router-link v-if="!username" to="/login" tag="button">Login to View</router-link>
       </div>
     </div>
   </div>
@@ -33,24 +36,8 @@ export default {
   },
   computed: {
     ...mapState({
-      username: state => state.username,
-      randomRecipes: state => state.randomRecipes,
-      watchedRecipes: state => state.watchedRecipes
+      username: state => state.username
     })
-  },
-  // mounted() {
-  //   this.updateRandomRecipes();
-  //   if (this.username) {
-  //     this.updateWatchedRecipes()
-  //   }
-  // },
-  methods: {
-    updateRandomRecipes() {
-      this.$store.dispatch('setRandomRecipes');
-    },
-  //   updateWatchedRecipes() {
-  //     this.$store.dispatch('setWatchedRecipes');
-  //   }
   }
 };
 </script>

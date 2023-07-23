@@ -27,7 +27,9 @@
         label-for="cuisines">
           <b-form-select
             id="cuisines"
-            :options="cuisines"
+            v-model="form.cuisine"
+            :options="cuisinesOptions"
+            multiple 
           ></b-form-select>
       </b-form-group>
 
@@ -38,7 +40,9 @@
         label-for="diets">
           <b-form-select
             id="diets"
-            :options="diets"
+            v-model="form.diet"
+            :options="dietsOptions"
+            multiple
           ></b-form-select>
       </b-form-group>
 
@@ -49,7 +53,9 @@
         label-for="intolerances">
           <b-form-select
             id="intolerances"
-            :options="intolerances"
+            v-model="form.intolerances"
+            :options="intolerancesOptions"
+            multiple
           ></b-form-select>
       </b-form-group>
 
@@ -93,7 +99,7 @@
       Search failed: {{ form.submitError }}
     </b-alert>
     <div
-      v-if="searchResults.length > 0"
+      v-if="searchRecipes.length > 0"
       class="centeredDiv">
         <b-button-group>
           <b-button
@@ -109,14 +115,14 @@
         </b-button-group>
         <RecipePreviewList
           title="Search Results"
-          :recipes="searchResults"
+          recipeListType="search"
           :class="{
             center: true
           }">
         </RecipePreviewList>
     </div>
     <div
-      v-if="!searchResults.length"
+      v-if="!searchRecipes.length"
       class="centeredDiv">
         <span>No results found</span>
     </div>
@@ -128,10 +134,10 @@
 
 <script>
 
-import { searchRecipes } from '../services/recipes.js';
+import { mapState } from "vuex";
 import RecipePreviewList from "../components/RecipePreviewList.vue";
 import { required } from "vuelidate/lib/validators";
-import { cuisines, diets, intolerances, searchDefaultValues } from "../assets/consts.js";
+import { cuisinesOptions, dietsOptions, intolerancesOptions, searchDefaultValues } from "../assets/consts.js";
 
 export default {
   name: "Search",
@@ -144,11 +150,11 @@ export default {
         ...searchDefaultValues,
         submitError: undefined
       },
-      cuisines: [{ value: null, text: "", disabled: true }],
-      diets: [{ value: null, text: "", disabled: true }],
-      intolerances: [{ value: null, text: "", disabled: true }],      
-      searchResults: [],
-      previousSearch: this.$store.state.previousSearch
+      cuisinesOptions: [{ value: null, text: "", disabled: true }],
+      dietsOptions: [{ value: null, text: "", disabled: true }],
+      intolerancesOptions: [{ value: null, text: "", disabled: true }],
+      errors: [],
+      validated: false
     }
   },
   validations: {
@@ -171,12 +177,16 @@ export default {
         { value: 10, text: '10' },
         { value: 15, text: '15' }
       ];
-    }
+    },
+    ...mapState({
+      searchRecipes: state => state.searchRecipes,
+      previousSearch: state => state.previousSearch
+    })
   },
   mounted() {
-    this.cuisines.push(...cuisines);
-    this.diets.push(...diets);
-    this.intolerances.push(...intolerances);
+    this.cuisinesOptions.push(...cuisinesOptions);
+    this.dietsOptions.push(...dietsOptions);
+    this.intolerancesOptions.push(...intolerancesOptions);
   },
   methods: {
     validateState(param) {
@@ -184,20 +194,17 @@ export default {
       return $dirty ? !$error : null;
     },
     async search() {
-      this.form.submitError = undefined;
-      this.searchResults = [];
-      this.$store.dispatch("setPreviousSearch", this.form.query);
-      this.previousSearch = this.form.query;
+      try {
+        this.$store.dispatch("setPreviousSearch", this.form.query);
+        this.previousSearch = this.form.query;
 
-      const { query, number, cuisines, diets, intolerances } = this.form;
-      const response = await searchRecipes({ query, number, cuisines, diets, intolerances });    
-      
-      if (!response) {
-        this.form.submitError = "Server error";
-      } else if (response.status !== 200) {
-        this.form.submitError = response.data.message;
-      } else if (response.status === 200) {
-        this.searchResults.push(...response.data);
+        let { query, number, cuisine, diet, intolerances } = this.form;
+        cuisine = cuisine.join();
+        diet = diet.join();
+        intolerances = intolerances.join();
+        this.$store.dispatch("setSearchRecipes", { query, number, cuisine, diet, intolerances });
+      } catch (error) {
+        console.log(error);
       }
     },
     async onSearch() {
@@ -216,14 +223,16 @@ export default {
       });
     },
     sortByPrepTime() {
-      this.searchResults.sort((a, b) => {
+      this.searchRecipes.sort((a, b) => {
         return a.readyInMinutes - b.readyInMinutes;
-      })
+      });
+      this.$store.commit("setSearchRecipes", this.searchRecipes);
     },
     sortByLikes() {
-      this.searchResults.sort((a, b) => {
+      this.searchRecipes.sort((a, b) => {
         return b.aggregateLikes - a.aggregateLikes;
-      })
+      });
+      this.$store.commit("setSearchRecipes", this.searchRecipes);
     }
   }
 }

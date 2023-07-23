@@ -5,7 +5,7 @@
         <h1>{{ recipe.title }}</h1>
         <button
           @click="addToFavorites"
-          :class="{ 'text-danger': isFavorite}">
+          :class="{ 'text-danger': recipe.isFavorite}">
           ♡
         </button>
         <div class="recipe-properties">
@@ -54,39 +54,22 @@ import { addRecipeToUserFavorites, addRecipeWatchedByUser } from '../services/us
 
 export default {
   name: "RecipeView",
-  mounted() {
-    this.isFavorite = this.$store.state.favoriteRecipes.indexOf(this.recipe) !== -1;
-    this.isWatched = this.$store.state.favoriteRecipes.indexOf(this.recipe) !== -1;
-  },
   data() {
     return {
-      recipe: null,
-      isFavorite: false,
-      isWatched: false
+      recipe: null
     };
   },
   async created() {
     try {
       // "https://test-for-3-2.herokuapp.com/recipes/info",
       const response = await getRecipeById(this.$route.params.recipeId);
+       
       if (response.status !== 200) {
         this.$router.replace("/NotFound");
       }
-      console.log(response.data);
-      let {
-        id,
-        title,
-        readyInMinutes,
-        image,
-        aggregateLikes,
-        vegan,
-        vegetarian,
-        glutenFree,
-        servings,
-        extendedIngredients,
-        instructions
-      } = response.data;
-      console.log(instructions);
+      let recipe = response.data;
+      
+      let {instructions} = recipe;
       instructions = instructions.split('<li>');
       let _instructions = [];
       for (let i = 0; i < instructions.length; i++) {
@@ -95,20 +78,10 @@ export default {
           _instructions.push(instructions[i]);
         }
       }
-      const _recipe = {
-        id,
-        title,
-        readyInMinutes,
-        image,
-        aggregateLikes,
-        vegan,
-        vegetarian,
-        glutenFree,
-        servings,
-        extendedIngredients,
-        instructions: _instructions,
-      };
-      this.recipe = _recipe;
+      recipe.instructions = _instructions;
+
+      this.recipe = recipe;
+      await this.addToWatched();
     } catch (error) {
       this.$router.replace("/NotFound");
       console.log(error);
@@ -116,11 +89,11 @@ export default {
   },
   methods: {
     async addToWatched() {
-      if (!this.isWatched) {
+      debugger;
+      if (!this.recipe.isWatched) {
         try {
           const response = await addRecipeWatchedByUser(this.recipe.id);
           if (response.status === 200) {
-            this.isWatched = true;
             this.$store.dispatch('setWatchedRecipes');
           }
         } catch (error) {
@@ -129,11 +102,10 @@ export default {
       }
     },
     async addToFavorites() {
-      if (!this.isFavorite) {
+      if (!this.recipe.isFavorite) {
         try {
           const response = await addRecipeToUserFavorites(this.recipe.id);
           if (response.status === 200) {
-            this.isFavorite = true;
             this.$root.toast("Favorites", "Added recipe to favorites", "success");
             this.$store.dispatch('setFavoriteRecipes');
           }

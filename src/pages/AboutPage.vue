@@ -38,6 +38,9 @@
             <a href="https://web-development-environments-2023.github.io/assignment2-209488154_206119919/">
             Pizza Invaders Game&#169;
             </a>
+            <a href="https://github.com/Web-Development-Environments-2023/assignment3_2-206119919_209488154/">
+            Recipes website (backend)&#169;
+            </a>
         </div>
         <div class="contect-us">
           <p id="contect-us">Contact us</p>

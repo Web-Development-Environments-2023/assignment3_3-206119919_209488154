@@ -1,12 +1,3 @@
-// const state = {
-
-//     server_domain: "http://localhost:3000",
-
-//     // server_domain: "http://132.72.65.211/",
-    
-
-// };
-
 import Vue from 'vue';
 import Vuex from 'vuex';
 import * as auth from './services/auth';
@@ -22,8 +13,10 @@ const store = new Vuex.Store({
         favoriteRecipes: [],
         createdRecipes: [],
         randomRecipes: [],
-        familyRecipes: [],
-        previousSearch: ''
+        searchRecipes: [],
+        previousSearch: '',
+        server_domain: "http://localhost:3000"
+        // server_domain: "http://SanjisSocialRecipes.cs.bgu.ac.il"
     },
     mutations: {
         setUsername(state, username) {
@@ -41,8 +34,8 @@ const store = new Vuex.Store({
         setRandomRecipes(state, randomRecipes) {
             state.randomRecipes = randomRecipes;
         },
-        setFamilyRecipes(state, familyRecipes) {
-            state.familyRecipes = familyRecipes;
+        setSearchRecipes(state, searchRecipes) {
+            state.searchRecipes = searchRecipes;
         },
         setPreviousSearch(state, previousSearch) {
             state.previousSearch = previousSearch;
@@ -113,11 +106,11 @@ const store = new Vuex.Store({
                 console.log(error);
             }
         },
-        async setFamilyRecipes({ commit }) {
+        async setSearchRecipes({ commit }, searchQuery) {
             try {
-                const response = await recipes.getFamilyRecipes();
+                const response = await recipes.searchRecipes(searchQuery);
                 if (response.status === 200) {
-                    commit('setFamilyRecipes', response.data);
+                    commit('setSearchRecipes', response.data);
                 }
             } catch (error) {
                 console.log(error);

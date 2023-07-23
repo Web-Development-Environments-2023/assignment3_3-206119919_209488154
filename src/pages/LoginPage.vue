@@ -92,8 +92,6 @@ export default {
     },
     async Login() {
       // "https://test-for-3-2.herokuapp.com/user/Login",
-      // "http://132.72.65.211: 80/Login",
-      // "http://132.73.84.100:80/Login",
       try {
         const response = await this.$store.dispatch('login',
           {
@@ -102,10 +100,6 @@ export default {
           }
         );
         if (response.status === 200) {
-          this.$store.dispatch('setFavoriteRecipes');
-          this.$store.dispatch('setWatchedRecipes');
-          this.$store.dispatch('setCreatedRecipes');
-          this.$store.dispatch('setFamilyRecipes');
           this.$router.push("/");
         }
         else {

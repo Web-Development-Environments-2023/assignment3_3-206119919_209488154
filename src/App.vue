@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <NavBar />
-    <keep-alive exclude="RecipeViewPage">
-      <router-view />
-    </keep-alive>
+    <router-view/>
   </div>
 </template>
 
@@ -14,14 +12,15 @@ export default {
   components: {
     NavBar
   },
-  created() {
-    if (this.$store.state.username) {
-      this.$store.dispatch("setFavoriteRecipes");
-      this.$store.dispatch("setWatchedRecipes");
-      this.$store.dispatch("setCreatedRecipes");
-      this.$store.dispatch("setFamilyRecipes");
-    }
-  }
+  // created() {
+    // this.$store.dispatch("setUsername", this.$root.store.username);
+    // this.$store.dispatch('setRandomRecipes');
+    // if (this.$store.state.username) {
+    //   this.$store.dispatch("setFavoriteRecipes");
+    //   this.$store.dispatch("setWatchedRecipes");
+    //   this.$store.dispatch("setCreatedRecipes");
+    // }
+  // }
 };
 </script>
 

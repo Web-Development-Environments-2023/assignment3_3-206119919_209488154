@@ -11,7 +11,7 @@
       </ul>
       <img src="../assets/couscous.jpg" alt="Couscous image" class="recipe-image">
 
-      <hr class="recipe-separator">
+      <hr class="recipe-border">
 
       <h1>Kubbeh</h1>
       <ul>
@@ -27,7 +27,7 @@
       </ul>
       <img src="../assets/kubbeh.jpg" alt="Kubbeh image" class="recipe-image">
 
-      <hr class="recipe-separator">
+      <hr class="recipe-border">
 
       <h1>Jachnun</h1>
       <ul>

@@ -3,21 +3,6 @@ import axios from "axios";
 const server_domain = "http://localhost:3000/recipes";
 
 /**
- * This path returns all the family recipes
- */
-export async function getFamilyRecipes() {
-    try {
-        const response = await axios.get(
-            server_domain + '/family', 
-            { withCredentials: true }
-        );
-        return response;
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-/**
  * This path returns 3 random recipes
  */
 export async function getThreeRandomRecipes() {
@@ -59,7 +44,6 @@ export async function getRecipeById(recipeId) {
             server_domain + `/recipe/${recipeId}`,
             { withCredentials: true }
         );
-        console.log(response);
         return response;
     } catch (error) {
         console.log(error);
